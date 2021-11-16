@@ -23,4 +23,10 @@ Environment represents the space in which the system operates. The environment i
 Optimization and testing viability of the system will be performed by simulating a fake/past environments. Because MNN system is an input-output system, MNN will behave in a deterministic manner. 
 
 ### Genetic Algorithm
-Provide the algorithm with all possible connections between the networks
+Genetic Algorithm will optimize the system. 
+1. Set of simulation environments are chosen
+2. All synaptic connections are given a randomized action potential thresholds
+3. Simulate different envirnoments and measure how each system performs
+4. Select set of best performing systems and repeat step 2 - 4, while decreasing the size of randomization each time
+5. After a certain threshold is met, either time or performance metrics. Select the best performing system
+
