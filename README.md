@@ -10,7 +10,7 @@ Motor Neuron Network Cluster represents a subset of motor neurons that is respon
 ### Central Master Neural Network
 Central Master Neural Network takes information from external and internal sources to modulate the behavior of MNN-Clusters. 
 
-### Environment
+## Environment
 Environment represents the space in which the system operates. The environment is responsible for external data, and epoch management. Environment will interact with the system by inputting sensory data to the CMNN and receiving/sending data from the MNN-clusters. 
 
 - Data
@@ -19,10 +19,10 @@ Environment represents the space in which the system operates. The environment i
 - Simulation
 
 
-## Optimization/Testing
+### Optimization/Testing
 Optimization and testing viability of the system will be performed by simulating a fake/past environments. Because MNN system is an input-output system, MNN will behave in a deterministic manner. 
 
-### Genetic Algorithm
+#### Genetic Algorithm
 Genetic Algorithm will optimize the system. 
 1. Set of simulation environments are chosen
 2. All synaptic connections are given a randomized action potential thresholds
