@@ -7,6 +7,8 @@ Basic Neuron all neurons are modeled after this module and will inherit it
 
 Neuron Components:
 ### 1. Neuron
+#### Notes
+- Simplifying Neurons to have one dendrite and axon each. While it would be more accurate to have multiple dendrites and axons to modulate each signals, the complexity it poses is to great and it'll also simply computation to use a single axon and dendrite. Modulation is done on the synaptic level, therefore, the interaction can occur without changing large portion of the function
 #### Feature
 Container for axons and dendrites. Checks/updates for its own potential and signals to axon for output if triggered.
 

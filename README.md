@@ -30,3 +30,20 @@ Genetic Algorithm will optimize the system.
 4. Select set of best performing systems and repeat step 2 - 4, while decreasing the size of randomization each time
 5. After a certain threshold is met, either time or performance metrics. Select the best performing system
 
+# Code Notes
+## Style Guide
+Classes - PascalCase
+Functions
+- External Action Function - camelCase
+    - verb is written in lowercase
+        - get
+        - set
+        - add
+        - remove
+        - update
+- External Function - PascalCase
+
+Variables
+- Class Variables - PascalCase
+- Other Variables - snake_case
+- 
