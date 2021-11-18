@@ -33,17 +33,17 @@ class Neuron:
         if self.Potential >= self.Threshold:
             self.Output()
         
-        
 class Dendrite:
     def __init__(self, id, neuron, synapses=None):
         self.ID = id
         self.Neuron = neuron
         self.Synapses = synapses
 
-    def receiveSignal(self, axon_id):
-        self._processSignal(axon_id)
+    def receiveSignal(self, signal, synapse_id):
+        self.Environment.
+        self._processSignal(signal)
     
-    def _processSignal(self, axon_id):
+    def _processSignal(self, signal):
         return 0 # Placeholder
 
     def addSynapse(self, synapse):
@@ -51,8 +51,6 @@ class Dendrite:
             self.Synapses = []
         self.Synapses.append(synapse)
 
-
-    
 class Axon:
     def __init__(self, id, neuron, synapses=None):
         self.ID = id
@@ -62,21 +60,29 @@ class Axon:
     def Output(self):
         for dendrite in self.Dendrites:
             dendrite.ReceiveSignal(self.ID)
-            
+
     def addSynapse(self, synapse):
         if self.Synapses is None:
             self.Synapses = []
         self.Synapses.append(synapse)
 
 class Synapse:
-    def __init__(self, dendrite, axon, environment, isInhibitory=False):
+    def __init__(self, dendrite, axon, environment, isInhibitory=False, default_signal=1):
         self.Dendrite = dendrite
         self.Axon = axon
         self.isInhibitory = isInhibitory
         self.Environment = environment
-    
+        self.DefaultSignal = default_signal
+        
+    def Signal(self):
+        raw_signal = self.DefaultSignal
+        modulated_signal = self._ExternalModulation(self, raw_signal)
+        return 0 # Placeholder
+        # self.Dendrite.receiveSignal()
 
-
+    def _ExternalModulation(self, raw_signal):
+        environement_condition = self.Environment
+        # do something with the modulation
         
 
 
