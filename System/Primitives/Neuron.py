@@ -22,6 +22,7 @@ class Neuron:
         self.Threshold = value
 
     def Output(self):
+        self._potentialDecay()
         self.Axon.Output()
 
     def Input(self, value):
@@ -32,8 +33,9 @@ class Neuron:
         if self.Potential >= self.Threshold:
             self.Output()
     
-    def _potentialDecay(self):
-        environment_modulation = self.Environment.getCondition()
-        potential = self.Potential
-        new_potential = self.Potential * environment_modulation
-        self.Potential = new_potential
+    def _potentialDecay(self, decay_value=None):
+        decay_value = self.Potential if decay_value is None else decay_value
+        self.Potential = self.Potential - decay_value
+        self._checkPotential()
+
+    

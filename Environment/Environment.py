@@ -1,11 +1,8 @@
 class Environment:
     def __init__(self, id, epoch=None):
         self.ID = id
-        if epoch is None:
-            self.Epoch = 0 # Placeholder - change to a time reference
-        else:
-            self.Epoch = epoch
-    
+        self.Epoch = 0 if epoch is None else epoch # Placeholder change 0 into a time value
+        
     def getCondition(self):
         return 0 # Placeholder
     
