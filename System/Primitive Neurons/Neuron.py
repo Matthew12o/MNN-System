@@ -40,7 +40,7 @@ class Dendrite:
         self.Synapses = synapses
 
     def receiveSignal(self, signal, synapse_id):
-        self.Environment.
+        self.Environment.recordInteractions(signal, synapse_id)
         self._processSignal(signal)
     
     def _processSignal(self, signal):
@@ -83,7 +83,7 @@ class Synapse:
     def _ExternalModulation(self, raw_signal):
         environement_condition = self.Environment
         # do something with the modulation
-        
+
 
 
         
