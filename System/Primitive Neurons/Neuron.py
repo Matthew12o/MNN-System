@@ -1,11 +1,11 @@
 
 class Neuron:
-    '''Model Neuron Primitive
+    '''Model Neuron Primitive \n
     This class represents the simplest possible neuron. Other types of neurons will inherit Neuron class
-    Required Parameters:
+    Required Parameters: \n
     - id: represents identifier
-    - environment: represents environement
-    Optional Parameters:
+    - environment: represents environement \n
+    Optional Parameters: \n
     - threshold: (default 1) represents the triggering threshold for neuron to activate.
     '''
     def __init__(self, id, environment, threshold=1):
@@ -13,14 +13,11 @@ class Neuron:
         self.Environment = environment
         self.Potential = 0
         self.Threshold = threshold
-        self.Axon = Axon('{}_Axon'.format(self.ID), self)
-        self.Dendrite = Dendrite('{}_Dendrite'.format(self.ID), self)
+        self.Axon = Axon(self)
+        self.Dendrite = Dendrite(self)
 
     def setThreshold(self, value):
         self.Threshold = value
-
-    def setDecayFactor(self, value):
-        self.DecayFactor = value
 
     def Output(self):
         for axon in self.Axons:
@@ -34,15 +31,26 @@ class Neuron:
         if self.Potential >= self.Threshold:
             self.Output()
     
-    def _potentialDecayFunction(self):
-        environment_factors = self.Environment.getCondition()
-        decay_factor = self.DecayFactor
+    def _potentialDecay(self):
+        environment_modulation = self.Environment.getCondition()
+        potential = self.Potential
+        new_potential = self.Potential * environment_modulation
+        self.Potential = new_potential
 
 class Dendrite:
-    def __init__(self, id, neuron, synapses=None):
-        self.ID = id
+    ''' Model Dendrite Primitive \n
+    Dendrite functions as a receiver of signal from external sources: Axon\n
+    Each Dendrite receives a neuron which it belongs to \n
+
+    '''
+    def __init__(self, neuron, synapses=None):
         self.Neuron = neuron
         self.Synapses = synapses
+        self.ID = self._getID()
+    
+    def _getID(self):
+        identifier = 'Dendrite {}'.format(self.Neuron.ID)
+        return identifier
 
     def addSynapse(self, synapse):
         if self.Synapses is None:
@@ -53,17 +61,25 @@ class Dendrite:
         self.Environment.recordInteractions(signal, synapse_id)
         self._processSignal(signal)
     
-    def checkSynapse(self, synapse_id):
+    def isSynapseAdded(self, synapse_id):
         return True # Placeholder 
     
     def _processSignal(self, signal):
         return 0 # Placeholder
 
 class Axon:
-    def __init__(self, id, neuron, synapses=None):
-        self.ID = id
+    ''' Model Axon Primitive \n
+    Axon functions as a sendeer of signals to External Source: Dendrite \n
+    Each Axon receives a neuron which it belongs to \n
+    '''
+    def __init__(self, neuron, synapses=None):
         self.Neuron = neuron
         self.Synapses = synapses
+        self.ID = self._getID()
+    
+    def _getID(self):
+        identifier = 'Axon {}'.format(self.Neuron.ID)
+        return identifier
 
     def addSynapse(self, synapse):
         if self.Synapses is None:
@@ -74,7 +90,7 @@ class Axon:
         for dendrite in self.Dendrites:
             dendrite.ReceiveSignal(self.ID)
     
-    def checkSynapse(self, synapse_id):
+    def isSynapseAdded(self, synapse_id):
         return True # placeholder code
         
 class Synapse:

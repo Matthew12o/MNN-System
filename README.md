@@ -37,6 +37,7 @@ Functions
 - External Action Function - camelCase
     - verb is written in lowercase
         - get
+        - is: sub-class of get only returns a bolean value
         - set
         - add
         - remove
