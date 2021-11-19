@@ -21,12 +21,15 @@ class Synapse:
         return identifier
 
     def Signal(self):
+        '''Receives Signal from Axon'''
         raw_signal = self.DefaultSignal
         modulated_signal = self._ExternalModulation(raw_signal)
+        return modulated_signal
 
-        return 0 # Placeholder
-        # self.Dendrite.receiveSignal()
-
+    
     def _ExternalModulation(self, raw_signal):
-        environement_condition = self.Environment
-        # do something with the modulation
+        ''' External Modulation \n 
+        In default state, does not do anything
+        '''
+        environment_values = self.Environment.getCondition()
+        return raw_signal

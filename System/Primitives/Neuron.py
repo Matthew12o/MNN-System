@@ -20,14 +20,6 @@ class Neuron:
 
     def setThreshold(self, value):
         self.Threshold = value
-
-    def Output(self):
-        self._potentialDecay()
-        self.Axon.Output()
-
-    def Input(self, value):
-        self.Potential += value
-        self._checkPotential()
     
     def _checkPotential(self):
         if self.Potential >= self.Threshold:
@@ -38,4 +30,10 @@ class Neuron:
         self.Potential = self.Potential - decay_value
         self._checkPotential()
 
-    
+    def Output(self):
+        self._potentialDecay()
+        self.Axon.Output()
+
+    def Input(self, value):
+        self.Potential += value
+        self._checkPotential()
