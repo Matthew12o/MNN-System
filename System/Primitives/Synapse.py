@@ -24,7 +24,7 @@ class Synapse:
         '''Receives Signal from Axon'''
         raw_signal = self.DefaultSignal
         modulated_signal = self._ExternalModulation(raw_signal)
-        return modulated_signal
+        self.Dendrite.receiveSignal(modulated_signal, self.ID)
 
     
     def _ExternalModulation(self, raw_signal):
