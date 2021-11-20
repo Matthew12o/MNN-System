@@ -37,3 +37,7 @@ class Neuron:
     def Input(self, value):
         self.Potential += value
         self._checkPotential()
+
+
+
+

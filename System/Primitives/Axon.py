@@ -23,3 +23,12 @@ class Axon:
     
     def isSynapseAdded(self, synapse_id):
         return True # placeholder code
+
+class MotorAxon(Axon):
+    def __init__(self, neuron, action, synapse=None):
+        self.Action = action
+        super.__init__(neuron, synapse)
+    
+    def Output(self):
+        self.Action()
+    

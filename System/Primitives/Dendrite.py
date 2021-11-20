@@ -27,3 +27,13 @@ class Dendrite:
     
     def _processSignal(self, signal):
         return 0 # Placeholder
+
+class SensoryNeuronDendrite(Dendrite):
+    def __init__(self, neuron, external_stimuli, synapses=None):
+        self.Stimuli = external_stimuli
+        super.__init__(neuron, synapses)
+    
+    def receiveSignal(self, signal, stimuli_id):
+        self.Environment.recordInteraction(signal, stimuli_id)
+        self._processSignal(signal)
+        
