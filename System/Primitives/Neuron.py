@@ -30,14 +30,17 @@ class Neuron:
         self.Potential = self.Potential - decay_value
         self._checkPotential()
 
+    # Interacts with the Axon
     def Output(self):
         self._potentialDecay()
         self.Axon.Output()
 
+    # Interacts with the Dendrite
     def Input(self, value):
         self.Potential += value
         self._checkPotential()
 
+    # Interacts with the Environment    
 
 
 
