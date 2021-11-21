@@ -12,7 +12,3 @@ class SimulationRepository:
         self.Database
 
         # return some data
-
-    
-
-
