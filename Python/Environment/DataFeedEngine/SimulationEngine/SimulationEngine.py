@@ -3,7 +3,6 @@ from Python.Environment.DataFeedEngine.SimulationEngine.Simulation_Repository im
 
 class SimulationEngine(DataFeedEngine):
     def __init__(self):
-        self.Simulation = []
         self.SimulationRepository = SimulationRepository()
         super.__init__()
     
@@ -18,4 +17,6 @@ class SimulationEngine(DataFeedEngine):
         if save:
             self.SimulationRepository.saveToSimulationRepository(simulation_reference, sim_data)
 
-        return sim_data    
+        return sim_data
+
+
