@@ -1,10 +1,15 @@
 import pdblp
+from Python.Environment.External_API.API import External_API
 
-class BloombergAPI:
+class BloombergAPI(External_API):
     def __init__(self):
-        self.Connection = pdblp.BCon(debug=True, port=8194, timeout=5000)
-        self.Connection.start()
+        super.__init__()
     
+    def Connect(self, debug=True, port=8194, timeout=5000):
+        self.Connection = pdblp.BCon(debug=debug, port=port, timeout=timeout)
+        self.Connection.start()
+        self.isActive = True
+
     def _bdh(self, universe, fields, options):
         ''' Data Point Request '''
         response_raw = self.Connection.bdh(universe, fields, options) # Placeholder

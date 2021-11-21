@@ -28,6 +28,11 @@ class Environment:
         # Cluster Interaction
 
         return 0 # Placeholder
+    def simulateEpoch(self):
+        # run code
+        
+        # next epoch
+        self._updateEpoch()
 
 class EnvironmentCondition:
     def __init__(self, epoch, condition_data):

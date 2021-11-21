@@ -22,7 +22,6 @@ class NetworkEngine:
         
         synapses = {}
         for synapse_reference in json_data['Synapses']:
-            id = synapse_reference['ID']
             axon_ref = synapse_reference['Axon']
             dendrite_ref = synapse_reference['Dendrite']
             isInhibitory = synapse_reference['isInhibitory']
@@ -36,7 +35,7 @@ class NetworkEngine:
             )
         
         return neurons, synapses
-
+    
 
         
 
