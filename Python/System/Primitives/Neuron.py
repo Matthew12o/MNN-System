@@ -43,4 +43,31 @@ class Neuron:
     # Interacts with the Environment    
 
 
+class MasterNeuron(Neuron):
+    def __init__(self, id, environment, threshold=1, sub=None):
+        self.Subs = {} if sub is None else sub
+        super.__init__(id, environment, threshold)
+
+    def addSubNeuron(self, sub=None):
+        if sub is None:
+            self.addSubNeuron(self._createSubNeuron(len(self.Subs)))
+        else:
+            self.Subs[sub.ID] = sub
+    
+    def _createSubNeuron(self, id):
+        sub = SubNeuron(id, self.Environment, self)
+        return sub
+
+    def modulateSubs(self, value):
+        for sub in self.Subs:
+            sub.MasterNeuronModulation(value)
+        
+
+class SubNeuron(Neuron):
+    def __init__(self, id, environment, master, threshold=1):
+        self.Master = master
+        super.__init__(id, environment, threshold)
+    
+    def MasterNeuronModulation(self, value):
+        self.Input(value)
 

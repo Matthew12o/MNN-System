@@ -7,11 +7,7 @@ class Dendrite:
     def __init__(self, neuron, synapses=None):
         self.Neuron = neuron
         self.Synapses = synapses
-        self.ID = self._getID()
-    
-    def _getID(self):
-        identifier = 'Dendrite {}'.format(self.Neuron.ID)
-        return identifier
+        self.ID = self.Neuron.ID
 
     def addSynapse(self, synapse):
         if self.Synapses is None:

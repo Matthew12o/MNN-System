@@ -1,0 +1,25 @@
+{   
+    "Syanpses" : [ 
+        {
+            "ID" : 1,
+            "Axon" : 1,
+            "Dendrite" : 2,
+            "isInhibitory": false,
+            "Magnitude": 1
+        },
+        {
+            "ID" : 2,
+            "Axon" : 2,
+            "Dendrite" : 3,
+            "isInhibitory": true,
+            "Magnitude": 1
+        },
+        {
+            "ID" : 3,
+            "Axon" : 3,
+            "Dendrite" : 1,
+            "isInhibitory": false,
+            "Magnitude": 1
+        }
+    ]    
+}

@@ -26,13 +26,12 @@ class Environment:
         # Cluster Formation
 
         # Cluster Interaction
-        
 
         return 0 # Placeholder
 
 class EnvironmentCondition:
-    def __init__(self, epoch, **kwargs):
+    def __init__(self, epoch, condition_data):
         self.Epoch = epoch
-        self.Data = pd.DataFrame.from_dict(kwargs)
+        self.Data = pd.DataFrame.from_dict(condition_data)
     
 

@@ -42,6 +42,7 @@ Functions
         - add
         - remove
         - update
+        - connect: specific case to create a synapse
 - External Function - PascalCase
 
 Variables

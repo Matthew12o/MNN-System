@@ -10,7 +10,12 @@ class Synapse:
         self.Environment = environment
         self.DefaultSignal = default_signal
         self.ID = self._getID()
-        
+        self._createConnection()
+    
+    def _createConnection(self):
+        self.Dendrite.addSynapse(self)
+        self.Axon.addSynapse(self)
+
     def _getID(self):
         synapse_type = 'Inhibitory' if self.isInhibitory else 'Excitatory'
         identifier = '{} Synapse {} -> {}'.format(
