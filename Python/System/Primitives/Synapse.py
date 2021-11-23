@@ -37,3 +37,25 @@ class Synapse:
         '''
         environment_values = self.Environment.getCondition()
         return raw_signal
+
+class MotorMuscularJunction(Synapse):
+    def __init__(self, execution_engine, order_default, axon, environment, isInhibitory=False, default_signal=1):
+        self.DefaultOrder = order_default
+        self.ExecutionEngine = execution_engine
+        super.__init__(None, axon, environment, isInhibitory, default_signal)
+    
+    def _createConnection(self):
+        self.ExecutionEngine.addSynapse(self)
+        self.Axon.addSynapse(self)
+    
+    def _getID(self):
+        synapse_type = 'Inhibitory' if self.isInhibitory else 'Excitatory'
+        identifier = '{} MMJ {} ->'.format(
+            synapse_type,
+            self.Axon.ID,
+            self.DefaultOrder
+        )
+        return identifier
+    
+    def Signal(self):
+        self.ExecutionEngine.Execute(self.DefaultOrder)

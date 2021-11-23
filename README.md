@@ -4,8 +4,8 @@
 Motor Neural Network Trading System is build based on muscular motor network. There are two major components: 1. motor neural network clusters and 2. centralized master neurons. With well designed network, it is possible to create a desired behavior heirarchy. MNN clusters are responsible for paricular behavior while CMN are responsible for modulating the system behavior. 
 
 ## System
-### MNN-Cluster
-Motor Neuron Network Cluster represents a subset of motor neurons that is responsible for a limited set of actions. Adding and substracting clusters will be equivalent to adding and subtracting functions to the application
+### Motor Neural Network-Cluster
+Motor Neural Network Cluster represents a subset of motor neurons that is responsible for a limited set of actions. Adding and substracting clusters will be equivalent to adding and subtracting functions to the application
 
 ### Central Master Neural Network
 Central Master Neural Network takes information from external and internal sources to modulate the behavior of MNN-Clusters. 
