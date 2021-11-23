@@ -58,7 +58,7 @@ class MasterNeuron(Neuron):
         sub = SubNeuron(id, self.Environment, self)
         return sub
 
-    def modulateSubs(self, value):
+    def modulateSubNeurons(self, value):
         for sub in self.Subs:
             sub.MasterNeuronModulation(value)
         
