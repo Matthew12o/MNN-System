@@ -1,3 +1,5 @@
+from Python.System.Primitives.ExecutionEngine import ExecutionEngine
+
 class Synapse:
     '''
     Model Synapse Primitive \n
