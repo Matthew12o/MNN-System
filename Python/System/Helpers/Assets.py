@@ -25,31 +25,21 @@ class Price:
 class Position:
     def __init__(self, security):
         self.Security = security
-        self.Quanity=0
+        self.Quantity=0
         self.CostBasis=0
-        self.isLong = True if self.Quantity >= 0 else False
-        self.PositionValue = self.Quanity * self.CostBasis
     
-    def updateAccontingType(self, new_acnt_type):
-        self.AccountingType = new_acnt_type
+    def isLong(self):
+        return True if self.Quantity >= 0 else False
     
-    def updatePosition(self):
-        trades = self.Security.Trades
-        self._updateQuantity(trades)
-        self._updateCostBasis(trades)
-    
-    def _updateQuantity(self, trades):
-        last_trade = trades[-1]
-        d_quantity = last_trade.quantity if last_trade.isLong else -last_trade.quantity
-        self.Quanity += d_quantity
+    def getPositionValue(self):
+        return self.Quanity * self.CostBasis
 
-    def _updateCostBasis(self, trades):
-        value = 0
-        for trade in trades:
-            if not trade.isClosed:
-                v = trade.Value if trade.isLong else -trade.Value
-                value += v
-        self.CostBasis = value/self.Quanity
+    def updatePosition(self, last_trade):
+        d_quantity = last_trade.Quantity if last_trade.isLong else -last_trade.Quantity
+        d_value = last_trade.Value if last_trade.isLong else -last_trade.Value
+        cur_value = self.getPositionValue()
+        self.Quantity += d_quantity
+        self.CostBasis += (cur_value + d_value) / d_quantity
 
 class Security:
     def __init__(self, identifier, accounting_type=AccountingType.FIFO):
@@ -57,11 +47,37 @@ class Security:
         self.Prices = pd.DataFrame(data={'Time' : [], 'Ask' :[], 'Bid':[], 'Mid':[], 'Last':[]}).set_index(keys='Time')
         self.Position = Position(self)
         self.Trades = []
+        self.ActiveTrades = []
+        self.ClosedTrades = []
     
     def postNewTrade(self, trade):
         self.Trades.append(trade)
+        self._netTrades()
+
+    def _netTrades(self):
+        last_trade = self.Trades[-1]
+        for trade in self.ActiveTrades:
+            if trade.isLong != last_trade.isLong:
+                if trade.Quantity == last_trade.Quantity:
+                    self._closeTrade(trade)
+                    self._closeTrade(last_trade)
+                elif trade.Quantity > last_trade.Quanity:
+                    t_1, t_2 = self._getSeparatedTrades(trade, last_trade.Quantity)
+                    self._closeTrade(t_1)
+                    self._closeTrade(trade)
+                    self.ActiveTrades.append(t_2)
+                else:
+                    t_1, t_2 = self._getSeparatedTrades(last_trade, trade.Quantity)
+                    self._closeTrade(t_1)
+                    self._closeTrade(trade)
+                    self.ActiveTrades.append(t_2)
+                    
+    def _closeTrade(self, trade):
+        trade.isClosed = True
+        self.ClosedTrades.append(trade)
 
     def _getSeparatedTrades(self, trade, break_quantity):
+        self.Trades.remove(trade)
         if trade.Quantity > break_quantity:
             # Create two trades from a single trade
             trade_1 = Trade(
@@ -120,4 +136,3 @@ class Strategy:
 
     def addSecurity(self, security):
         self.Securities.append(security)
-
