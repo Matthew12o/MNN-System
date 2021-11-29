@@ -11,15 +11,18 @@ class NetworkEngine:
         file = open(file_path)
         json_data = json.load(file)
 
+        # Parse for Neuron References 
         neuron_references = []
         for synapse in json_data['Synapses']:
             neuron_references.append(synapse['Dendrite'])
             neuron_references.append(synapse['Axon'])
 
+        # Create Neurons based on the neuron_reference
         neurons = {}
         for reference in np.unique(np.array(neuron_references)):
             neurons[reference] = Neuron(reference, self.Environment)
         
+        # Create Synapses
         synapses = {}
         for synapse_reference in json_data['Synapses']:
             axon_ref = synapse_reference['Axon']
@@ -35,10 +38,3 @@ class NetworkEngine:
             )
         
         return neurons, synapses
-    
-
-        
-
-
-            
-        
