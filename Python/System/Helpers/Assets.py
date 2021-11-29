@@ -47,34 +47,56 @@ class Security:
         self.Prices = pd.DataFrame(data={'Time' : [], 'Ask' :[], 'Bid':[], 'Mid':[], 'Last':[]}).set_index(keys='Time')
         self.Position = Position(self)
         self.Trades = []
-        self.ActiveTrades = []
-        self.ClosedTrades = []
-    
+
+# Handle Trades   
     def postNewTrade(self, trade):
         self.Trades.append(trade)
-        self._netTrades()
+        self._netTrades();
 
-    def _netTrades(self):
-        last_trade = self.Trades[-1]
-        for trade in self.ActiveTrades:
-            if trade.isLong != last_trade.isLong:
-                if trade.Quantity == last_trade.Quantity:
-                    self._closeTrade(trade)
-                    self._closeTrade(last_trade)
-                elif trade.Quantity > last_trade.Quanity:
-                    t_1, t_2 = self._getSeparatedTrades(trade, last_trade.Quantity)
-                    self._closeTrade(t_1)
-                    self._closeTrade(trade)
-                    self.ActiveTrades.append(t_2)
-                else:
-                    t_1, t_2 = self._getSeparatedTrades(last_trade, trade.Quantity)
-                    self._closeTrade(t_1)
-                    self._closeTrade(trade)
-                    self.ActiveTrades.append(t_2)
-                    
-    def _closeTrade(self, trade):
-        trade.isClosed = True
-        self.ClosedTrades.append(trade)
+    def _netTrades(self, ref=None):
+        last_trade_ref = len(self.Trades) if ref is None else ref
+        for i in range(0, len(self.Trades)-1):
+            if not self.Trades[i].isClosed and not self.Trades[last_trade_ref].isClosed:
+                if self.Trades[last_trade_ref].Quantity == self.Trades[i].Quantity:
+                    # Close both trades
+                    self.Trades[last_trade_ref].isClosed = True
+                    self.Trades[i].isClosed = True
+                elif self.Trades[last_trade_ref].Quantity > self.Trades[i].Quantity:
+                    # 1. Create two separate trades from original trades on the larger trade
+                    t1, t2 = self._getSeparatedTrades(self.Trades[last_trade_ref], self.Trades[last_trade_ref].Quantity)
+
+                    # 2. Close Trade 1 which matches the last trade
+                    t1.isClosed = True
+
+                    # 3. Remove Original Trade
+                    self.Trades.pop(last_trade_ref)
+
+                    # 4. Append trade t1 and t2
+                    self.Trades.append(t1)
+                    self.Trades.append(t2)
+
+                    # 5. Close the last trade, which is smaller
+                    self.Trades[i].isClosed = True
+
+                    # 6. Recursion of _netTrades on remainder
+                    self._netTrades(ref=len(self.Trades))
+
+                elif self.Trades[last_trade_ref].Quantity < self.Trades[i].Quantity:
+                    # 1. Create two separate trades from original trades on the larger trade
+                    t1, t2 = self._getSeparatedTrades(self.Trades[i], self.Trades[last_trade_ref].Quantity)
+
+                    # 2. Close Trade 1 which matches the last trade
+                    t1.isClosed = True
+
+                    # 3. Remove Original Trade
+                    self.Trades.pop(i)
+
+                    # 4. Append trade t1 and t2
+                    self.Trades.append(t1)
+                    self.Trades.append(t2)
+
+                    # 5. Close the last trade, which is smaller
+                    self.Trades[last_trade_ref].isClosed = True
 
     def _getSeparatedTrades(self, trade, break_quantity):
         self.Trades.remove(trade)
@@ -99,6 +121,7 @@ class Security:
             trade_2.isPartial = True
         return trade_1, trade_2
 
+# Handle Prices
     def requestPrice(self):
         # contact API and request for price
         new_price = 0 # Placeholder 
@@ -136,3 +159,4 @@ class Strategy:
 
     def addSecurity(self, security):
         self.Securities.append(security)
+
