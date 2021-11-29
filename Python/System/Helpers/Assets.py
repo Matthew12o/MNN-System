@@ -20,7 +20,9 @@ class Price:
         self.Ask = ask
         self.Last = last
         if mid is None and not bid is None and not ask is None:
-            self.mid = (bid + ask)/2
+            self.Mid = (bid + ask)/2
+        elif not mid is None:
+            self.Mid = mid
 
 class Position:
     def __init__(self, security):
