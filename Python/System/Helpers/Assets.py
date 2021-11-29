@@ -44,7 +44,8 @@ class Position:
 class Security:
     def __init__(self, identifier, accounting_type=AccountingType.FIFO):
         self.ID = identifier
-        self.Prices = pd.DataFrame(data={'Time' : [], 'Ask' :[], 'Bid':[], 'Mid':[], 'Last':[]}).set_index(keys='Time')
+        d = {'Time' : [], 'Ask' :[], 'Bid':[], 'Mid':[], 'Last':[]}
+        self.Prices = pd.DataFrame(data=d).set_index(keys='Time')
         self.Position = Position(self)
         self.Trades = []
 
@@ -63,7 +64,7 @@ class Security:
                     self.Trades[i].isClosed = True
                 elif self.Trades[last_trade_ref].Quantity > self.Trades[i].Quantity:
                     # 1. Create two separate trades from original trades on the larger trade
-                    t1, t2 = self._getSeparatedTrades(self.Trades[last_trade_ref], self.Trades[last_trade_ref].Quantity)
+                    t1, t2 = self._getSeparatedTrades(self.Trades[last_trade_ref], self.Trades[i].Quantity)
 
                     # 2. Close Trade 1 which matches the last trade
                     t1.isClosed = True
@@ -132,7 +133,8 @@ class Security:
             self._convertToDataFrame(new_price)
         
     def _convertToDataFrame(self, price):
-        p = pd.DataFrame({'Time':[price.Time], 'Ask':[price.Ask], 'Bid':[price.Bid], 'Mid':[price.Mid], 'Last':[price.Last]}).set_index(keys='Time')
+        d = {'Time':[price.Time], 'Ask':[price.Ask], 'Bid':[price.Bid], 'Mid':[price.Mid], 'Last':[price.Last]}
+        p = pd.DataFrame(data=d).set_index(keys='Time')
         self.Prices.append(p, ignore_index=False)
 
     def getPrice(self):
