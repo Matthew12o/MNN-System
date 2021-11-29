@@ -28,11 +28,11 @@ class Cluster:
         axon = neuron.Axon
         dendrite = neuron.Dendrite
         
-        # remove synapse connected to axon
+        # remove synapse reference connected to axon
         for synapse in axon.Syanpses:
             self.removeSynapse(synapse.ID)
         
-        # remove synapse connected to dendrite
+        # remove synapse reference connected to dendrite
         for synapse in dendrite.Synapses:
             self.removeSynapse(synapse.ID)
 
