@@ -44,7 +44,13 @@ class Position:
 class Security:
     def __init__(self, identifier, accounting_type=AccountingType.FIFO):
         self.ID = identifier
-        d = {'Time' : [], 'Ask' :[], 'Bid':[], 'Mid':[], 'Last':[]}
+        d = {
+            'Time' : [], 
+            'Ask' :[], 
+            'Bid':[], 
+            'Mid':[], 
+            'Last':[]
+            }
         self.Prices = pd.DataFrame(data=d).set_index(keys='Time')
         self.Position = Position(self)
         self.Trades = []
@@ -133,7 +139,13 @@ class Security:
             self._convertToDataFrame(new_price)
         
     def _convertToDataFrame(self, price):
-        d = {'Time':[price.Time], 'Ask':[price.Ask], 'Bid':[price.Bid], 'Mid':[price.Mid], 'Last':[price.Last]}
+        d = {
+            'Time':[price.Time], 
+            'Ask':[price.Ask], 
+            'Bid':[price.Bid], 
+            'Mid':[price.Mid], 
+            'Last':[price.Last]
+            }
         p = pd.DataFrame(data=d).set_index(keys='Time')
         self.Prices.append(p, ignore_index=False)
 
