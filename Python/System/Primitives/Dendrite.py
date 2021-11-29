@@ -1,3 +1,5 @@
+from Python.System.Primitives.Neuron import Neuron
+
 class Dendrite:
     ''' Model Dendrite Primitive \n
     Dendrite functions as a receiver of signal from external sources: Axon\n

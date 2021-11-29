@@ -20,8 +20,11 @@ class Cluster:
     def connectNeurons(self, file_path):
         NE = NetworkEngine(self.Environment)
         neurons, synapses = NE.parseNetworkData(file_path)
-        self.Neurons = neurons
-        self.Synapses = synapses
+        for neuron in neurons:
+            self.addNeuron(neuron)
+        for synapse in synapses:
+            self.addSynapse(synapse)
+
         
     def removeNeuron(self, neuron_id):
         neuron = self.Neurons[neuron_id]
@@ -45,5 +48,3 @@ class Cluster:
         temp_dict = self.Synapses
         del temp_dict[synapse_id]
         self.Synapses = temp_dict    
-
-    

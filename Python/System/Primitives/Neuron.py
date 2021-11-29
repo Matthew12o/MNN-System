@@ -21,9 +21,8 @@ class Neuron:
     def setThreshold(self, value):
         self.Threshold = value
     
-    def _checkPotential(self):
-        if self.Potential >= self.Threshold:
-            self.Output()
+    def _isPotentialAboveThreshold(self):
+        return self.Potential >= self.Threshold
     
     def _potentialDecay(self, decay_value=None):
         decay_value = self.Potential if decay_value is None else decay_value
@@ -31,14 +30,15 @@ class Neuron:
         self._checkPotential()
 
     # Interacts with the Axon
-    def Output(self):
+    def _Output(self):
         self._potentialDecay()
         self.Axon.Output()
 
     # Interacts with the Dendrite
     def Input(self, value):
         self.Potential += value
-        self._checkPotential()
+        if self._isPotentialAboveThreshold():
+            self._Output
 
     # Interacts with the Environment    
 
