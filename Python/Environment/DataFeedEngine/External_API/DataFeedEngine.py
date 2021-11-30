@@ -2,9 +2,6 @@
 from Python.Environment.DataFeedEngine.External_API.Bloomberg_API import BloombergAPI
 from Python.Environment.DataFeedEngine.External_API.IB_API import IB_API
 
-from Python.Environment.DataFeedEngine.External_API.Bloomberg_API import BloombergAPI
-from Python.Environment.DataFeedEngine.External_API.IB_API import IB_API
-
 class DataFeedEngine:
     def __init__(self):
         self.API = []
