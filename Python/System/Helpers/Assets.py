@@ -70,6 +70,7 @@ class Security:
                     # Close both trades
                     self.Trades[last_trade_ref].isClosed = True
                     self.Trades[i].isClosed = True
+                    break
                 elif self.Trades[last_trade_ref].Quantity > self.Trades[i].Quantity:
                     # 1. Create two separate trades from original trades on the larger trade
                     t1, t2 = self._getSeparatedTrades(self.Trades[last_trade_ref], self.Trades[i].Quantity)
@@ -89,7 +90,7 @@ class Security:
 
                     # 6. Recursion of _netTrades on remainder
                     self._netTrades(ref=len(self.Trades))
-
+                    break
                 elif self.Trades[last_trade_ref].Quantity < self.Trades[i].Quantity:
                     # 1. Create two separate trades from original trades on the larger trade
                     t1, t2 = self._getSeparatedTrades(self.Trades[i], self.Trades[last_trade_ref].Quantity)
@@ -106,6 +107,7 @@ class Security:
 
                     # 5. Close the last trade, which is smaller
                     self.Trades[last_trade_ref].isClosed = True
+                    break
 
     def _getSeparatedTrades(self, trade, break_quantity):
         self.Trades.remove(trade)
