@@ -6,7 +6,7 @@ class SimulationEngine(DataFeedEngine):
         self.SimulationRepository = SimulationRepository()
         super.__init__()
     
-    def getSimulationDate(self, simulation_reference):
+    def getSimulationData(self, simulation_reference):
         self.Simulation.append(simulation_reference)
     
     def createSimulation(self, simulation_reference, save=True):
@@ -15,6 +15,7 @@ class SimulationEngine(DataFeedEngine):
 
         # Upload Simulation
         if save:
+            # Async save to Simulation Repository
             self.SimulationRepository.saveToSimulationRepository(simulation_reference, sim_data)
 
         return sim_data

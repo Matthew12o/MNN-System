@@ -22,7 +22,7 @@ class BloombergAPI(External_API):
         response_clean = self._cleanReponse(response_raw, 1)
         return response_clean
     
-    def RequestData(self, universe, fields, options, request_type=0):
+    def RequestData(self, universe, fields, request_type=0, **options):
         if request_type == 0:
             blp_response = self._bdh(universe, fields, options)
         else:

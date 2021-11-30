@@ -22,3 +22,6 @@ class DataFeedEngine:
     
     def getMarketData(self):
         return None # placeholder
+
+    def getPriceData(self):
+        return None # placeholder
