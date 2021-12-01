@@ -2,7 +2,7 @@ from Python.Environment.DataFeedEngine.External_API.DataFeedEngine import DataFe
 from Python.Environment.DataFeedEngine.SimulationEngine.Simulation_Repository import SimulationRepository
 
 import numpy as np
-import Enum from enum
+from enum import Enum
 
 class SimulationEngine(DataFeedEngine):
     def __init__(self):
