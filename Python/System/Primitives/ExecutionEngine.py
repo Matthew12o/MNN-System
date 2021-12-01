@@ -25,6 +25,7 @@ class ExecutionEngine:
     
     def cancelOrder(self):
         return 0 # Placeholder 
+        
     def outputTradeDeatils(self):
         return self.Order
         
