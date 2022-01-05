@@ -1,8 +1,8 @@
 import sys
 
 from Python.Environment.Environment import Environment
-from Python.Environment.SimulationEngine.SimulationEngine import SimulationEngine
-from Python.Environment.External_API.DataFeedEngine import LiveDataEngine
+from Python.Environment.DataFeedEngine.SimulationEngine.SimulationEngine import SimulationEngine
+from Python.Environment.DataFeedEngine.External_API.LiveDataEngine import LiveDataEngine
 
 def main(isTest=False):
     environment_id = 'Test Environment' if isTest else 'Live Environment'
